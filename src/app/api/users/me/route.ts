@@ -1,0 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { getDataFromToken } from "@/helpers/getDataFromToken";
+import { NextResponse, NextRequest } from "next/server";
+import User from "@/models/userModel";
+import { connect } from "@/db/db";
+
+export async function GET(request: NextRequest) {
+	try {
+		const userId = await getDataFromToken(request);
+		const user = User.findOne({ _id: userId }).select("-password");
+		return NextResponse.json({ message: "User found", data: user });
+	} catch (error: any) {
+		return NextResponse.json({ staus: 400, error: "ERROR: " + error.message });
+	}
+}
