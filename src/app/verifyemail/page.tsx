@@ -4,16 +4,18 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function VerifyEmail() {
 	const [token, setToken] = useState("");
 	const [verified, setVerified] = useState(false);
+	const router = useRouter();
 
 	const verifyEmail = async () => {
 		try {
 			const response = await axios.post("/api/users/verifyemail", { token });
 			setVerified(true);
-			toast.success("Email verified successfully 🎉");
+			router.push("/login");
 		} catch (error: any) {
 			console.error(error.message);
 			toast.error(

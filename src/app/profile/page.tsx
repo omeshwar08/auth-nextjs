@@ -34,6 +34,15 @@ const ProfilePage: React.FC = () => {
 		}
 	};
 
+	const handleForgetPassword = async () => {
+		try {
+			await axios.post("/api/users/forgetpassword");
+			toast.success("verification email sent");
+		} catch (error: any) {
+			toast.error("Code broke: " + error.message);
+		}
+	};
+
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen">
 			<Toaster />
@@ -51,6 +60,12 @@ const ProfilePage: React.FC = () => {
 				onClick={handleLogout}
 			>
 				Logout
+			</button>
+			<button
+				className="btn btn-primary p-2 mt-2 border-2 rounded-xl"
+				onClick={handleForgetPassword}
+			>
+				Forget Password
 			</button>
 		</div>
 	);

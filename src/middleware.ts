@@ -5,7 +5,10 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
 	const url = request.nextUrl.pathname;
 	const publicUrl =
-		url === "/login" || url === "/signup" || url === "/verifyemail";
+		url === "/login" ||
+		url === "/signup" ||
+		url === "/verifyemail" ||
+		url === "/forgetpassword";
 	const token = request.cookies.get("token")?.value || "";
 	if (publicUrl && token) {
 		return NextResponse.redirect(new URL("/profile", request.nextUrl));
@@ -24,5 +27,6 @@ export const config = {
 		"/",
 		"/profile/:path*",
 		"/verifyemail",
+		"/forgetpassword",
 	],
 };
