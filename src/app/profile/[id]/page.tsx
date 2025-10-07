@@ -1,11 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const UserProfile = ({ params }: any) => {
-  return (
-    <div>
-      UserProfile
-      <h1>{params.id}</h1>
-    </div>
-  );
+import React from "react";
+
+type Props = {
+	params: { id: string };
 };
 
-export default UserProfile;
+export default async function UserProfile({ params }: Props) {
+	// Await params in case it's a Promise (required by Next)
+	const { id } = await params;
+	return (
+		<div>
+			<h1>User Profile</h1>
+			<p>ID: {id}</p>
+		</div>
+	);
+}
